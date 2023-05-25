@@ -2,7 +2,6 @@ package pe.edu.upc.reconectando.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.reconectando.dtos.UsuarioDTO;
 import pe.edu.upc.reconectando.entities.Usuario;
@@ -30,5 +29,24 @@ public class UsuarioController {
             ModelMapper m = new ModelMapper();
             return m.map(x, UsuarioDTO.class);
         }).collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Integer id){
+        uS.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public UsuarioDTO listId(@PathVariable("id") Integer id){
+        ModelMapper m = new ModelMapper();
+        UsuarioDTO dto = m.map(uS.listId(id), UsuarioDTO.class);
+        return dto;
+    }
+
+    @PutMapping
+    public void goUpdate(@RequestBody UsuarioDTO dto){
+        ModelMapper m = new ModelMapper();
+        Usuario u = m.map(dto, Usuario.class);
+        uS.insert(u);
     }
 }
