@@ -29,5 +29,14 @@ public class ComentarioController {
         }).collect(Collectors.toList());
     }
 
-
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id")Integer id){
+        cS.delete(id);
+    }
+    @GetMapping("/{id}")
+    public ComentarioDTO listId(@PathVariable("id")Integer id){
+        ModelMapper m = new ModelMapper();
+        ComentarioDTO dto = m.map(cS.listId(id),ComentarioDTO.class);
+        return dto;
+    }
 }
