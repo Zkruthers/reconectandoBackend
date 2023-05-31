@@ -6,6 +6,7 @@ import pe.edu.upc.comentario.entities.Comentario;
 import pe.edu.upc.comentario.repositories.IComentarioRepository;
 import pe.edu.upc.comentario.services.IComentarioService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,5 +33,10 @@ public class ComentarioServiceImplement implements IComentarioService {
     @Override
     public Comentario listId(int idComentario) {
         return cR.findById(idComentario).orElse(new Comentario());
+    }
+
+    @Override
+    public List<Comentario> find(LocalDate fecha) {
+        return cR.buscarComentario(fecha);
     }
 }
